@@ -1,0 +1,56 @@
+<view class="page">
+  <map
+    id="campusMap"
+    class="campus-map"
+    latitude="{{centerLat}}"
+    longitude="{{centerLng}}"
+    scale="{{scale}}"
+    markers="{{markers}}"
+    show-location="{{false}}"
+    enable-3D="{{true}}"
+    enable-poi="{{true}}"
+    enable-building="{{true}}"
+    bindmarkertap="onMarkerTap"
+    bindcallouttap="onCalloutTap"
+  ></map>
+
+  <view class="top-bar">
+    <view class="title-wrap">
+      <view class="title">校园公交实时定位</view>
+      <view class="subtitle">自动跟随 BUS_01</view>
+    </view>
+    <view class="connection {{connectionState}}">
+      <view class="connection-dot"></view>
+      <text>{{connectionText}}</text>
+    </view>
+  </view>
+
+  <view class="status-panel">
+    <view class="panel-head">
+      <view class="panel-title-wrap">
+        <text class="panel-title">公交状态</text>
+        <text class="panel-subtitle">{{modeText}}</text>
+      </view>
+      <text class="update-text">每 2 秒刷新</text>
+    </view>
+
+    <view class="bus-list">
+      <view
+        wx:for="{{busList}}"
+        wx:key="bus_id"
+        class="bus-row {{item.rowClass}}"
+        bindtap="onBusRowTap"
+        data-bus-id="{{item.bus_id}}"
+      >
+        <view class="bus-main">
+          <text class="bus-id">{{item.bus_id}}</text>
+          <text class="bus-time">{{item.updateTime}}</text>
+        </view>
+        <view class="bus-meta">
+          <text class="speed">{{item.speed}} km/h</text>
+          <text class="status-pill {{item.statusClass}}">{{item.status}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
